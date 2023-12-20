@@ -201,7 +201,7 @@ function sumOfCodes(str) {
   }
 
   let sum = 0;
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i += 1) {
     sum += str.charCodeAt(i);
   }
 
@@ -252,11 +252,11 @@ function endsWith(str, substr) {
  *   formatTime(0, 0) => "00:00"
  */
 function formatTime(minutes, seconds) {
-  minutes = Math.max(0, Math.floor(minutes));
-  seconds = Math.max(0, Math.floor(seconds));
+  const minutes1 = Math.max(0, Math.floor(minutes));
+  const seconds1 = Math.max(0, Math.floor(seconds));
 
-  const formattedMinutes = String(minutes).padStart(2, '0');
-  const formattedSeconds = String(seconds).padStart(2, '0');
+  const formattedMinutes = String(minutes1).padStart(2, '0');
+  const formattedSeconds = String(seconds1).padStart(2, '0');
 
   return `${formattedMinutes}:${formattedSeconds}`;
 }
@@ -324,9 +324,9 @@ function countVowels(str) {
   const vowels = 'aeiouyAEIOUY';
   let count = 0;
 
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i += 1) {
     if (vowels.includes(str[i])) {
-      count++;
+      count += 1;
     }
   }
 
@@ -350,7 +350,7 @@ function isPalindrome(str) {
   const cleanedStr = str.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
 
   // Compare characters from the beginning and end towards the center
-  for (let i = 0; i < Math.floor(cleanedStr.length / 2); i++) {
+  for (let i = 0; i < Math.floor(cleanedStr.length / 2); i += 1) {
     if (cleanedStr[i] !== cleanedStr[cleanedStr.length - 1 - i]) {
       return false;
     }
@@ -372,18 +372,26 @@ function isPalindrome(str) {
  *   findLongestWord('No words here') => 'words'
  */
 function findLongestWord(sentence) {
+  // const words = sentence.split(' ');
+  // let longestWord = '';
+
+  // for (const word of words) {
+  //   // Remove non-alphanumeric characters to get the actual word
+  //   const cleanedWord = word.replace(/[^a-zA-Z]/g, '');
+
+  //   // Update the longest word if the current one is longer
+  //   if (cleanedWord.length > longestWord.length) {
+  //     longestWord = cleanedWord;
+  //   }
+  // }
+
+  // return longestWord;
   const words = sentence.split(' ');
-  let longestWord = '';
 
-  for (const word of words) {
-    // Remove non-alphanumeric characters to get the actual word
-    const cleanedWord = word.replace(/[^a-zA-Z]/g, '');
-
-    // Update the longest word if the current one is longer
-    if (cleanedWord.length > longestWord.length) {
-      longestWord = cleanedWord;
-    }
-  }
+  const longestWord = words.reduce((longest, current) => {
+    const cleanedWord = current.replace(/[^a-zA-Z]/g, '');
+    return cleanedWord.length > longest.length ? cleanedWord : longest;
+  }, '');
 
   return longestWord;
 }
@@ -418,17 +426,12 @@ function reverseWords(str) {
  *   invertCase('12345') => '12345'
  */
 function invertCase(str) {
-  let invertedStr = '';
-
-  for (const char of str) {
-    if (char === char.toUpperCase()) {
-      invertedStr += char.toLowerCase();
-    } else {
-      invertedStr += char.toUpperCase();
-    }
-  }
-
-  return invertedStr;
+  return str
+    .split('')
+    .map((char) =>
+      char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+    )
+    .join('');
 }
 
 /**
@@ -521,7 +524,7 @@ function extractEmails(str) {
  *
  */
 function encodeToRot13(str) {
-  return str.replace(/[a-zA-Z]/g, function (char) {
+  return str.replace(/[a-zA-Z]/g, (char) => {
     const isUpperCase = char === char.toUpperCase();
     const offset = isUpperCase ? 65 : 97;
     return String.fromCharCode(
