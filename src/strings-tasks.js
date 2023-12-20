@@ -401,7 +401,7 @@ function findLongestWord(sentence) {
 function reverseWords(str) {
   const words = str.split(' ');
 
-  const reversedWords = words.map(word => word.split('').reverse().join(''));
+  const reversedWords = words.map((word) => word.split('').reverse().join(''));
 
   return reversedWords.join(' ');
 }
@@ -497,8 +497,11 @@ function unbracketTag(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-  return str.split(';').filter(email => /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/.test(email));
-
+  return str
+    .split(';')
+    .filter((email) =>
+      /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/.test(email)
+    );
 }
 
 /**
@@ -521,7 +524,9 @@ function encodeToRot13(str) {
   return str.replace(/[a-zA-Z]/g, function (char) {
     const isUpperCase = char === char.toUpperCase();
     const offset = isUpperCase ? 65 : 97;
-    return String.fromCharCode((char.charCodeAt(0) - offset + 13) % 26 + offset);
+    return String.fromCharCode(
+      ((char.charCodeAt(0) - offset + 13) % 26) + offset
+    );
   });
 }
 
@@ -550,7 +555,21 @@ function encodeToRot13(str) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const ranks = [
+    'A',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    'J',
+    'Q',
+    'K',
+  ];
   const suits = ['♣', '♦', '♥', '♠'];
 
   const rankIndex = ranks.indexOf(value.slice(0, -1));
